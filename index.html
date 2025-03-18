@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deen Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .smoke-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            background-color: black;
+        }
+
+        .smoke-layer {
+            position: absolute;
+            height: 100vh;
+            width: 100%;
+            opacity: 0;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .smoke-1 {
+            background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, transparent 60%);
+            animation: smokeEffect1 8s ease-out forwards;
+            transform-origin: center center;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+        }
+
+        .smoke-2 {
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, transparent 50%);
+            animation: smokeEffect2 10s ease-out forwards;
+            animation-delay: 1s;
+            transform-origin: center center;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+        }
+
+        .smoke-3 {
+            background: radial-gradient(circle at center, rgba(255,255,255,0.7) 0%, transparent 40%);
+            animation: smokeEffect3 12s ease-out forwards;
+            animation-delay: 2s;
+            transform-origin: center center;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+        }
+
+        .smoke-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-image: url('https://images.unsplash.com/photo-1567095761054-7a02e69e5c43?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            mix-blend-mode: screen;
+            animation: particlesDrift 15s ease-in-out forwards;
+        }
+
+        .title-container {
+            position: relative;
+            z-index: 20;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            animation: showTitle 3s ease-out forwards;
+            animation-delay: 2s;
+            padding: 0 20px;
+        }
+
+        .title {
+            color: white;
+            font-size: clamp(2rem, 10vw, 5rem);
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes smokeEffect1 {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(100%) scale(0.8);
+                filter: blur(5px);
+            }
+            20% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.4;
+                transform: translateX(-50%) translateY(-30%) scale(1.5);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-50%) scale(2);
+                filter: blur(15px);
+            }
+        }
+
+        @keyframes smokeEffect2 {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(100%) scale(1);
+                filter: blur(8px);
+            }
+            25% {
+                opacity: 0.5;
+            }
+            60% {
+                opacity: 0.3;
+                transform: translateX(-50%) translateY(-40%) scale(1.8);
+                filter: blur(12px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-60%) scale(2.2);
+                filter: blur(18px);
+            }
+        }
+
+        @keyframes smokeEffect3 {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(100%) scale(1.2);
+                filter: blur(10px);
+            }
+            30% {
+                opacity: 0.4;
+            }
+            70% {
+                opacity: 0.2;
+                transform: translateX(-50%) translateY(-50%) scale(2);
+                filter: blur(15px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-70%) scale(2.4);
+                filter: blur(20px);
+            }
+        }
+
+        @keyframes particlesDrift {
+            0% {
+                opacity: 0.15;
+                transform: translateX(-50%) translateY(0) scale(1.2);
+                filter: blur(8px);
+            }
+            50% {
+                opacity: 0.1;
+                transform: translateX(-50%) translateY(-10%) scale(1.4);
+                filter: blur(12px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-15%) scale(1.6);
+                filter: blur(15px);
+            }
+        }
+
+        @keyframes showTitle {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .smoke-1, .smoke-2, .smoke-3 {
+                width: 100%;
+            }
+
+            .title {
+                letter-spacing: 0.15em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="smoke-container">
+            <div class="smoke-layer smoke-1"></div>
+            <div class="smoke-layer smoke-2"></div>
+            <div class="smoke-layer smoke-3"></div>
+            <div class="smoke-particles"></div>
+        </div>
+        <div class="title-container">
+            <h1 class="title">DEEN DESIGNER</h1>
+        </div>
+    </div>
+</body>
+</html>
